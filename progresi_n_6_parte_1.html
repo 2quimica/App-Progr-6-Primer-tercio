@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Progresión 6 - Parte 1: Naturaleza Ondulatoria de la Radiación Electromagnética</title>
+<style>
+:root {
+  --primary: #0284c7;
+  --primary-dark: #0369a1;
+  --secondary: #0d9488;
+  --accent: #f59e0b;
+  --bg-main: #f8fafc;
+  --card-bg: #ffffff;
+  --text-dark: #0f172a;
+  --text-muted: #475569;
+  --border-color: #cbd5e1;
+  --success: #16a34a;
+  --error: #dc2626;
+  --radius: 12px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  line-height: 1.5;
+  padding-bottom: 24px;
+}
+
+/* Header & Progress Bar */
+.header-bar {
+  position: sticky;
+  top: 0;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 16px;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.header-content {
+  max-width: 768px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.student-badge {
+  background: #e0f2fe;
+  color: var(--primary-dark);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #bae6fd;
+  max-width: 55%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-container {
+  max-width: 768px;
+  margin: 6px auto 0 auto;
+  background: #e2e8f0;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Main Container & Cards */
+.main-container {
+  max-width: 768px;
+  margin: 16px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+}
+
+h1 { font-size: 1.35rem; color: var(--text-dark); margin-bottom: 6px; line-height: 1.3; text-align: center;}
+h2 { font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 12px; }
+h3 { font-size: 1.02rem; color: var(--text-dark); margin-bottom: 8px; }
+
+p { margin-bottom: 12px; font-size: 0.95rem; color: #334155; }
+
+/* Badges & Pills */
+.badge-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.badge-rem { background: #e0f2fe; color: #0369a1; }
+.badge-offline { background: #dcfce7; color: #15803d; }
+
+/* Buttons & Controls */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  touch-action: manipulation;
+  min-height: 48px;
+  margin-top: 10px;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-secondary { background: var(--secondary); }
+.btn-outline { background: transparent; color: var(--primary-dark); border: 2px solid var(--primary); }
+.btn-disabled { background: #94a3b8; cursor: not-allowed; opacity: 0.7; }
+
+input[type="text"], select, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  background: #f8fafc;
+  outline: none;
+}
+
+input[type="text"]:focus, textarea:focus {
+  border-color: var(--primary);
+  background: #ffffff;
+}
+
+/* Options & Interactive List */
+.option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius);
+  background: #ffffff;
+  font-size: 0.92rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-btn.selected {
+  border-color: var(--primary);
+  background: #f0f9ff;
+  font-weight: 600;
+}
+
+.option-btn.correct {
+  border-color: var(--success);
+  background: #f0fdf4;
+  color: #14532d;
+}
+
+.option-btn.incorrect {
+  border-color: var(--error);
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+
+.feedback-box {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  margin: 12px 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.feedback-box.success { background: #dcfce7; color: #14532d; border: 1px solid #86efac; }
+.feedback-box.error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.feedback-box.info { background: #e0f2fe; color: #075985; border: 1px solid #bae6fd; }
+.feedback-box.warning { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+/* Interactive Concept Map & Word Bank */
+.word-bank {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 12px;
+  background: #f1f5f9;
+  border-radius: var(--radius);
+  border: 1px dashed var(--border-color);
+}
+
+.word-chip {
+  background: var(--primary);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.word-chip.selected {
+  background: var(--accent);
+}
+
+.word-chip.used {
+  background: #cbd5e1;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.fill-gap {
+  display: inline-block;
+  min-width: 100px;
+  padding: 4px 8px;
+  margin: 2px 4px;
+  border-bottom: 2px solid var(--primary);
+  background: #f1f5f9;
+  text-align: center;
+  font-weight: 600;
+  color: var(--primary-dark);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.fill-gap.filled {
+  background: #e0f2fe;
+}
+
+/* Order List Component */
+.order-list {
+  list-style: none;
+  margin-bottom: 14px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  font-size: 0.88rem;
+}
+
+.order-btns {
+  display: flex;
+  gap: 4px;
+}
+
+.order-btn-mini {
+  width: 32px;
+  height: 32px;
+  background: #f1f5f9;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Quiz Nav Grid */
+.quiz-nav-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+  justify-content: center;
+}
+
+.quiz-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.quiz-nav-btn.active { border-color: var(--primary); background: var(--primary); color: white; }
+.quiz-nav-btn.answered { background: #dcfce7; border-color: #86efac; color: #15803d; }
+
+/* Evidence Screenshot Card */
+.evidence-card {
+  background: #ffffff;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+}
+
+.evidence-header {
+  background: var(--primary);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.evidence-score {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  text-align: center;
+  line-height: 1;
+  margin: 8px 0;
+}
+
+.svg-container {
+  width: 100%;
+  background: #0f172a;
+  border-radius: var(--radius);
+  padding: 10px;
+  margin: 12px 0;
+  overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="header-bar">
+  <div class="header-content">
+    <span id="phase-label">Inicio</span>
+    <span id="student-badge" class="student-badge">Estudiante: Sin registrar</span>
+  </div>
+  <div class="progress-container">
+    <div id="progress-bar" class="progress-bar"></div>
+  </div>
+</div>
+
+<main id="app-content" class="main-container">
+  <!-- Dynamic screens will be injected here by the script -->
+</main>
+
+<script>
+// Persistent Local State with localStorage fallback
+const STORAGE_KEY = 'PROG6_PART1_STATE_V1';
+
+const defaultState = {
+  studentName: '',
+  studentGroup: '',
+  currentPhase: 0, // 0: Start, 1: Engage, 2: Study 1, 3: Study 2, 4: Study 3, 5: Concept Map, 6: Ordering, 7: Open Reflection, 8: Quiz, 9: Meta Reflection, 10: Evidence Card
+  engage: { choice: null, answered: false },
+  act1: { choice: null, attempts: 0, completed: false },
+  act2: { choices: {}, completed: false },
+  waveSim: { freq: 2, lambda: 3 },
+  conceptMap: { gaps: { 1:'', 2:'', 3:'', 4:'', 5:'', 6:'' }, completed: false },
+  ordering: { items: [
+    "Campos eléctricos y magnéticos oscilan perpendicularmente",
+    "La onda se propaga transportando energía electromagnética",
+    "Atraviesa el espacio o vacío a la velocidad c (300,000 km/s)",
+    "Interactúa con receptores transfiriendo dicha energía"
+  ], completed: false },
+  writtenAnswer: { text: '', reviewed: false },
+  quiz: {
+    currentQuestion: 0,
+    answers: Array(10).fill(null),
+    submitted: false,
+    score: 0
+  },
+  metaReflection: { text: '', difficulty: 'normal' },
+  timestamp: ''
+};
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch(e) {
+    console.warn("Storage access restricted; running in volatile memory mode.");
+  }
+  return { ...defaultState };
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch(e) {
+    // Ignore storage errors in restricted contexts
+  }
+}
+
+// Strictly bounded 10-question evaluation derived exclusively from Part 1 of Progression 6
+const quizQuestions = [
+  {
+    q: "1. De acuerdo con el modelo ondulatorio, ¿de qué está formada esencialmente la radiación electromagnética (REM)?",
+    options: [
+      "De partículas mecánicas sólidas chocando en cadena.",
+      "De campos eléctricos y magnéticos oscilantes y perpendiculares entre sí.",
+      "De un flujo de aire caliente que transporta electricidad estática.",
+      "De pulsos de sonido comprimido en el agua."
+    ],
+    correct: 1,
+    explain: "La radiación electromagnética consiste en ondas transversales constituidas por campos eléctricos (E) y magnéticos (B) mutuamente perpendiculares que oscilan en el espacio."
+  },
+  {
+    q: "2. ¿Cuál es una diferencia fundamental entre una onda mecánica (como el sonido) y una onda electromagnética (como la luz)?",
+    options: [
+      "Las ondas mecánicas viajan en el vacío y las electromagnéticas no.",
+      "Las electromagnéticas pueden propagarse en el vacío sin necesidad de un medio material.",
+      "Las ondas electromagnéticas son producidas exclusivamente por seres vivos.",
+      "Las ondas mecánicas no transportan ningún tipo de energía."
+    ],
+    correct: 1,
+    explain: "A diferencia de las ondas mecánicas que requieren masa (aire, agua, metal) para propagarse, la REM se propaga perfectamente en el vacío absoluto."
+  },
+  {
+    q: "3. ¿A qué velocidad aproximada se propaga la radiación electromagnética en el vacío?",
+    options: [
+      "340 m/s (velocidad del sonido)",
+      "3,000 km/s",
+      "300,000 km/s (3 × 10⁸ m/s)",
+      "Depende de la temperatura del viento únicamente."
+    ],
+    correct: 2,
+    explain: "En el vacío, toda radiación electromagnética viaja a la velocidad universal constante c ≈ 300,000 km/s (3 × 10⁸ m/s)."
+  },
+  {
+    q: "4. En una onda electromagnética, ¿qué representa la 'longitud de onda' (λ)?",
+    options: [
+      "El número de ciclos completos por segundo.",
+      "La distancia física entre dos crestas o dos valles consecutivos.",
+      "La fuerza eléctrica acumulada en la batería.",
+      "La altura máxima del soporte del emisor."
+    ],
+    correct: 1,
+    explain: "La longitud de onda (λ) es la distancia que separa dos puntos idénticos consecutivos de la onda, como dos crestas contiguas."
+  },
+  {
+    q: "5. ¿Qué mide la 'frecuencia' (f) de una onda electromagnética y en qué unidad del SI se expresa?",
+    options: [
+      "El peso de la onda en kilogramos.",
+      "El número de oscilaciones por unidad de tiempo, medido en Hertz (Hz).",
+      "La distancia recorrida en un año luz.",
+      "La temperatura máxima generada por la luz."
+    ],
+    correct: 1,
+    explain: "La frecuencia (f) determina cuántas oscilaciones completas ocurren en un segundo. Su unidad estándar es el Hertz (Hz = 1/s)."
+  },
+  {
+    q: "6. Si la velocidad de propagación de la radiación en el vacío es fija (c), ¿cómo se relacionan matemáticamente la longitud de onda (λ) y la frecuencia (f)?",
+    options: [
+      "c = λ · f (la velocidad es igual al producto de la longitud de onda por la frecuencia).",
+      "c = λ + f (la velocidad es la suma de la longitud y la frecuencia).",
+      "c = f / λ² (la velocidad depende del cuadrado de la frecuencia).",
+      "No existe ninguna relación matemática entre ambas."
+    ],
+    correct: 0,
+    explain: "La ecuación fundamental de la onda establece que la velocidad de propagación c es el producto de la longitud de onda λ por la frecuencia f (c = λ · f)."
+  },
+  {
+    q: "7. Si la velocidad c permanece constante en el vacío, ¿qué ocurre con la longitud de onda (λ) si la frecuencia (f) AUMENTA?",
+    options: [
+      "La longitud de onda aumenta exactamente en la misma proporción.",
+      "La longitud de onda disminuye, guardando una relación inversamente proporcional.",
+      "La longitud de onda permanece totalmente inalterada.",
+      "La velocidad c aumenta al doble de inmediato."
+    ],
+    correct: 1,
+    explain: "Dado que c es constante (c = λ · f), la longitud de onda y la frecuencia son inversamente proporcionales: mayor frecuencia implica menor longitud de onda."
+  },
+  {
+    q: "8. ¿Cómo están orientados el campo eléctrico (E), el campo magnético (B) y la dirección de avance de una onda electromagnética?",
+    options: [
+      "Todos se mueven en la misma línea recta paralela sin formar ángulos.",
+      "El campo eléctrico y el magnético son perpendiculares entre sí y perpendiculares a la dirección de propagación.",
+      "El campo magnético oscila en círculos cerrados mientras el eléctrico permanece inmóvil.",
+      "Forman un ángulo plano de 180° opuesto a la gravedad."
+    ],
+    correct: 1,
+    explain: "La REM es una onda transversal tridimensional: el campo eléctrico oscila en un plano, el magnético en un plano perpendicular, y ambos se propagan perpendicularmente a sus oscilaciones."
+  },
+  {
+    q: "9. ¿Por qué la luz solar puede cruzar el espacio exterior helado y desprovisto de aire hasta calentar la superficie terrestre?",
+    options: [
+      "Porque el sol empuja aire atmosférico a través del espacio a presión.",
+      "Porque la luz solar es radiación electromagnética que no requiere de materia para viajar.",
+      "Porque viaja dentro de conductos invisibles de cristal suspendidos en el espacio.",
+      "Porque la gravedad terrestre succiona el calor del sol directamente."
+    ],
+    correct: 1,
+    explain: "La luz solar es radiación electromagnética. Como tal, auto-propaga sus campos eléctrico y magnético a través del vacío del espacio interplanetario."
+  },
+  {
+    q: "10. ¿Qué es lo que transporta o transfiere una onda electromagnética al desplazarse por el espacio de un punto a otro?",
+    options: [
+      "Materia masiva y átomos pesados.",
+      "Energía electromagnética (sin desplazar materia neta).",
+      "Únicamente ondas sonoras de alta intensidad.",
+      "Electrones libres recolectados en el camino."
+    ],
+    correct: 1,
+    explain: "Las ondas electromagnéticas transportan energía e información a través del espacio sin que exista transporte neto de materia."
+  }
+];
+
+function updateHeader() {
+  const phaseNames = [
+    "Inicio",
+    "1. Situación Contextual",
+    "2. Naturaleza de la REM",
+    "3. Mecánicas vs REM",
+    "4. Parámetros de Onda",
+    "5. Mapa Conceptual",
+    "6. Secuencia Lógica",
+    "7. Reflexión de Concepto",
+    "8. Comprobación Formativa",
+    "9. Cierre Metacognitivo",
+    "Tarjeta de Evidencia Final"
+  ];
+  
+  document.getElementById('phase-label').textContent = phaseNames[state.currentPhase] || "Progresión 6";
+  
+  if (state.studentName) {
+    document.getElementById('student-badge').textContent = `${state.studentName} (${state.studentGroup})`;
+  } else {
+    document.getElementById('student-badge').textContent = `Estudiante: Sin registrar`;
+  }
+
+  const progressPct = Math.round((state.currentPhase / 10) * 100);
+  document.getElementById('progress-bar').style.width = `${progressPct}%`;
+}
+
+function render() {
+  saveState();
+  updateHeader();
+  const container = document.getElementById('app-content');
+  
+  switch(state.currentPhase) {
+    case 0: renderStart(container); break;
+    case 1: renderEngage(container); break;
+    case 2: renderStudy1(container); break;
+    case 3: renderStudy2(container); break;
+    case 4: renderStudy3(container); break;
+    case 5: renderConceptMap(container); break;
+    case 6: renderOrdering(container); break;
+    case 7: renderWrittenReflect(container); break;
+    case 8: renderQuiz(container); break;
+    case 9: renderMetaReflection(container); break;
+    case 10: renderEvidenceCard(container); break;
+    default: renderStart(container); break;
+  }
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>"']/g, function(m) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m];
+  });
+}
+
+function renderStart(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">PROGRESIÓN 6 — PARTE 1 DE 3</span>
+      <span class="badge-tag badge-offline">100% FUNCIONAMIENTO OFFLINE</span>
+      
+      <h1>LA ENERGÍA EN LOS PROCESOS DE LA VIDA DIARIA</h1>
+      <h2 style="text-align: center; color: var(--secondary); font-size: 1.05rem; margin-top: 4px;">
+        "Naturaleza y Modelo Ondulatorio de la Radiación Electromagnética"
+      </h2>
+
+      <div class="feedback-box info" style="margin-top: 16px;">
+        <strong>📘 Trabajo Autónomo a Distancia:</strong><br>
+        Esta sesión guiada te permitirá aprender de forma totalmente independiente desde tu hogar, sin necesidad de conectarte a videollamadas ni gastar datos de Internet. Lee, explora las actividades interactiva y demuestra tu comprensión.
+      </div>
+
+      <form id="start-form" onsubmit="handleStart(event)" style="margin-top: 16px;">
+        <label style="font-weight: 700; font-size: 0.88rem; color: var(--text-dark);">Nombre Completo del Alumno(a):</label>
+        <input type="text" id="input-name" placeholder="Ej. Carlos Eduardo Mendoza López" required value="${escapeHtml(state.studentName)}">
+
+        <label style="font-weight: 700; font-size: 0.88rem; color: var(--text-dark);">Grupo / Turno:</label>
+        <input type="text" id="input-group" placeholder="Ej. 202 - Matutino" required value="${escapeHtml(state.studentGroup)}">
+
+        <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;">
+          * Tus datos quedarán registrados localmente en tu dispositivo para emitir tu comprobante final.
+        </p>
+
+        <button type="submit" class="btn">COMENZAR MI SESIÓN DE APRENDIZAJE →</button>
+      </form>
+    </div>
+  `;
+}
+
+function handleStart(e) {
+  e.preventDefault();
+  const name = document.getElementById('input-name').value.trim();
+  const group = document.getElementById('input-group').value.trim();
+
+  if (!name || !group) return;
+
+  state.studentName = name;
+  state.studentGroup = group;
+  state.currentPhase = 1;
+  render();
+}
+
+function renderEngage(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 1: Contexto de la Vida Diaria</span>
+      <h2>¿Cómo viaja la energía a través del espacio?</h2>
+      
+      <p>
+        Debido a crecientes preventivas por lluvias en la región, estás estudiando en casa. Mientras miras por la ventana, notas dos fenómenos cotidianos: recibes señal de radio FM/celular y sientes el calor de la luz solar en tu rostro.
+      </p>
+
+      <div class="svg-container" style="text-align: center;">
+        <svg width="100%" height="110" viewBox="0 0 320 110">
+          <!-- Sun -->
+          <circle cx="50" cy="55" r="28" fill="#f59e0b" />
+          <path d="M 50 15 L 50 5 M 50 95 L 50 105 M 10 55 L 0 55 M 90 55 L 100 55 M 22 27 L 15 20 M 78 83 L 85 90 M 22 83 L 15 90 M 78 27 L 85 20" stroke="#f59e0b" stroke-width="3"/>
+          
+          <!-- Wave Rays to House -->
+          <path d="M 85 55 Q 110 35 135 55 T 185 55 T 235 55" stroke="#38bdf8" stroke-width="3" fill="none" />
+          <path d="M 85 55 Q 110 75 135 55 T 185 55 T 235 55" stroke="#ef4444" stroke-width="2" fill="none" stroke-dasharray="4,4" />
+
+          <!-- House / Antenna -->
+          <polygon points="250,90 250,55 285,30 320,55 320,90" fill="#334155" />
+          <line x1="285" y1="30" x2="285" y2="10" stroke="#cbd5e1" stroke-width="3"/>
+          <circle cx="285" cy="10" r="4" fill="#38bdf8"/>
+        </svg>
+      </div>
+
+      <p style="font-weight: 600; color: var(--text-dark);">
+        El Sol está a 150 millones de kilómetros de la Tierra, separado por un espacio vacío sin aire ni materia. ¿Cómo llega su energía e información hasta nosotros?
+      </p>
+
+      <button class="option-btn ${state.engage.choice === 0 ? 'selected' : ''}" onclick="selectEngage(0)">
+        A) A través de la radiación electromagnética, que no requiere ningún medio material para viajar.
+      </button>
+      <button class="option-btn ${state.engage.choice === 1 ? 'selected' : ''}" onclick="selectEngage(1)">
+        B) Porque el viento empuja la temperatura del espacio directamente hacia nuestro planeta.
+      </button>
+      <button class="option-btn ${state.engage.choice === 2 ? 'selected' : ''}" onclick="selectEngage(2)">
+        C) Mediante ondas sonoras gigantescas producidas en la superficie solar.
+      </button>
+
+      <div id="engage-feedback"></div>
+
+      <button id="btn-engage-next" class="btn ${state.engage.answered ? '' : 'btn-disabled'}" onclick="nextPhase(2)">
+        CONTINUAR AL ESTUDIO DEL MODELO ONDULATORIO →
+      </button>
+    </div>
+  `;
+
+  if (state.engage.answered) showEngageFeedback();
+}
+
+function selectEngage(idx) {
+  state.engage.choice = idx;
+  state.engage.answered = true;
+  render();
+}
+
+function showEngageFeedback() {
+  const fb = document.getElementById('engage-feedback');
+  if (!fb) return;
+  if (state.engage.choice === 0) {
+    fb.innerHTML = `
+      <div class="feedback-box success">
+        <strong>✅ ¡Respuesta Correcta!</strong> La luz solar y las ondas de telecomunicación son formas de <strong>Radiación Electromagnética (REM)</strong>. Pueden propagarse por el vacío del espacio interestelar sin necesitar moléculas o materia.
+      </div>
+    `;
+  } else {
+    fb.innerHTML = `
+      <div class="feedback-box warning">
+        <strong>💡 Reflexión:</strong> El espacio exterior es un vacío casi perfecto (no hay aire para transportar sonido ni viento). La única manera en que nos llega la luz y el calor del Sol es en forma de <strong>radiación electromagnética</strong>.
+      </div>
+    `;
+  }
+}
+
+function renderStudy1(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 2: Microlectura 1</span>
+      <h2>¿Qué es la Radiación Electromagnética (REM)?</h2>
+
+      <div style="background: #f8fafc; border-left: 4px solid var(--primary); padding: 12px; margin-bottom: 14px;">
+        <p style="margin-bottom:0;">
+          La <strong>radiación electromagnética</strong> es una forma de emisión y propagación de energía a través del espacio. De acuerdo con el <strong>modelo ondulatorio</strong>, consiste en la propagación simultánea de un <strong>campo eléctrico (E)</strong> y un <strong>campo magnético (B)</strong> oscilantes.
+        </p>
+      </div>
+
+      <h3>Características del Modelo Ondulatorio:</h3>
+      <ul style="margin-left: 20px; font-size: 0.92rem; color: #334155; margin-bottom: 14px; line-height: 1.6;">
+        <li><strong>Campos perpendiculares:</strong> El campo eléctrico y el campo magnético oscilan en planos perpendiculares entre sí (formando un ángulo de 90°).</li>
+        <li><strong>Onda transversal:</strong> Ambos campos oscilan de forma perpendicular a la dirección en la que avanza la onda.</li>
+        <li><strong>Autopropagación:</strong> Una variación en el campo eléctrico genera un campo magnético, y la variación del campo magnético genera un campo eléctrico, permitiendo que la onda avance por sí sola.</li>
+      </ul>
+
+      <!-- Interactive SVG diagram of EM Wave -->
+      <div class="svg-container">
+        <svg width="100%" height="150" viewBox="0 0 320 150">
+          <text x="10" y="20" fill="#94a3b8" font-size="10" font-weight="bold">MODELO ONDULATORIO TRIDIMENSIONAL DE LA REM</text>
+          
+          <!-- Axis -->
+          <line x1="30" y1="85" x2="300" y2="85" stroke="#64748b" stroke-width="2" />
+          <text x="302" y="88" fill="#cbd5e1" font-size="10">Avance</text>
+
+          <!-- Electric Field E (Blue Vertical Wave) -->
+          <path d="M 30 85 Q 60 25 90 85 T 150 85 T 210 85 T 270 85" stroke="#38bdf8" stroke-width="3" fill="none"/>
+          
+          <!-- Magnetic Field B (Red Slanted Wave) -->
+          <path d="M 30 85 Q 70 120 90 85 T 150 85 T 210 85 T 270 85" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="3,3" fill="none"/>
+
+          <!-- Legend -->
+          <rect x="30" y="125" width="12" height="12" fill="#38bdf8"/>
+          <text x="48" y="135" fill="#e2e8f0" font-size="10">Campo Eléctrico (E)</text>
+
+          <rect x="160" y="125" width="12" height="12" fill="#f43f5e"/>
+          <text x="178" y="135" fill="#e2e8f0" font-size="10">Campo Magnético (B)</text>
+        </svg>
+      </div>
+
+      <div class="card" style="background:#f1f5f9; border:1px solid var(--border-color); margin-top:14px;">
+        <h3>🧠 Comprueba si entendiste (Microactividad 1)</h3>
+        <p style="font-size: 0.88rem;">¿Cómo se disponen los campos eléctrico y magnético al propagarse una onda electromagnética?</p>
+        
+        <button class="option-btn ${state.act1.choice === 0 ? 'selected' : ''}" onclick="checkAct1(0)">
+          A) Oscilan paralelos a la dirección de avance sin formar ángulos.
+        </button>
+        <button class="option-btn ${state.act1.choice === 1 ? 'selected' : ''}" onclick="checkAct1(1)">
+          B) Oscilan de manera perpendicular entre sí y perpendiculares a la dirección de avance.
+        </button>
+        <button class="option-btn ${state.act1.choice === 2 ? 'selected' : ''}" onclick="checkAct1(2)">
+          C) El campo magnético destruye al campo eléctrico a medida que avanza.
+        </button>
+
+        <div id="act1-feedback"></div>
+      </div>
+
+      <button id="btn-study1-next" class="btn ${state.act1.completed ? '' : 'btn-disabled'}" onclick="nextPhase(3)">
+        CONTINUAR A ONDAS MECÁNICAS VS. REM →
+      </button>
+    </div>
+  `;
+
+  if (state.act1.choice !== null) showAct1Feedback();
+}
+
+function checkAct1(choiceIdx) {
+  state.act1.choice = choiceIdx;
+  state.act1.attempts++;
+  if (choiceIdx === 1) {
+    state.act1.completed = true;
+  }
+  render();
+}
+
+function showAct1Feedback() {
+  const fb = document.getElementById('act1-feedback');
+  if (!fb) return;
+  if (state.act1.choice === 1) {
+    fb.innerHTML = `<div class="feedback-box success">✅ <strong>¡Correcto!</strong> Es una onda transversal constituida por dos campos mutuamente perpendiculares que auto-sostienen su movimiento.</div>`;
+  } else {
+    let hint = state.act1.attempts === 1 ? "💡 Pista 1: Revisa la imagen del modelo tridimensional." : "💡 Pista 2: Observa que el ángulo entre el campo azul y rojo es de 90 grados (perpendiculares).";
+    fb.innerHTML = `<div class="feedback-box error">❌ Inténtalo nuevamente.<br>${hint}</div>`;
+  }
+}
+
+function renderStudy2(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 3: Microlectura 2</span>
+      <h2>Ondas Mecánicas vs. Ondas Electromagnéticas</h2>
+
+      <p>
+        Para comprender la radiación electromagnética, es crucial diferenciarla de las <strong>ondas mecánicas</strong> que experimentas todos los días.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0;">
+        <div style="background:#eff6ff; padding:10px; border-radius:8px; border-top:3px solid #3b82f6;">
+          <h4 style="font-size:0.88rem; color:#1e40af;">Ondas Mecánicas</h4>
+          <p style="font-size:0.8rem; margin:4px 0 0 0; color:#1e3a8a;">
+            • Requieren un <strong>medio material</strong> (aire, agua, cuerda) para propagarse.<br>
+            • Ejemplos: Sonido, olas del mar, ondas sísmicas.<br>
+            • <em>No pueden viajar en el vacío.</em>
+          </p>
+        </div>
+
+        <div style="background:#f0fdf4; padding:10px; border-radius:8px; border-top:3px solid #16a34a;">
+          <h4 style="font-size:0.88rem; color:#166534;">Ondas Electromagnéticas</h4>
+          <p style="font-size:0.8rem; margin:4px 0 0 0; color:#14532d;">
+            • <strong>NO requieren medio material.</strong><br>
+            • Se propagan en el espacio o vacío a la velocidad de la luz: <strong>c ≈ 3 × 10⁸ m/s</strong>.<br>
+            • Ejemplos: Luz visible, rayos X, señales de celular.
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="background:#f8fafc; border:1px solid var(--border-color); margin-top:14px;">
+        <h3>⚡ Microactividad 2: Clasificación de Ondas</h3>
+        <p style="font-size: 0.88rem;">Determina la naturaleza de los siguientes dos fenómenos:</p>
+
+        <div style="margin-bottom: 12px;">
+          <p style="font-weight:600; font-size:0.85rem; margin-bottom:4px;">1. La señal de radio enviada desde un satélite en el espacio:</p>
+          <select id="sel-wave-1" onchange="checkAct2()">
+            <option value="">-- Selecciona respuesta --</option>
+            <option value="em" ${state.act2.choices[1]==='em'?'selected':''}>Onda Electromagnética (Viaja en el vacío)</option>
+            <option value="mec" ${state.act2.choices[1]==='mec'?'selected':''}>Onda Mecánica (Necesita aire)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <p style="font-weight:600; font-size:0.85rem; margin-bottom:4px;">2. El trueno o sonido producido durante una tormenta:</p>
+          <select id="sel-wave-2" onchange="checkAct2()">
+            <option value="">-- Selecciona respuesta --</option>
+            <option value="em" ${state.act2.choices[2]==='em'?'selected':''}>Onda Electromagnética (Viaja en el vacío)</option>
+            <option value="mec" ${state.act2.choices[2]==='mec'?'selected':''}>Onda Mecánica (Requiere aire)</option>
+          </select>
+        </div>
+
+        <div id="act2-feedback"></div>
+      </div>
+
+      <button id="btn-study2-next" class="btn ${state.act2.completed ? '' : 'btn-disabled'}" onclick="nextPhase(4)">
+        CONTINUAR A PARÁMETROS DE ONDA (λ, f, c) →
+      </button>
+    </div>
+  `;
+}
+
+function checkAct2() {
+  const s1 = document.getElementById('sel-wave-1').value;
+  const s2 = document.getElementById('sel-wave-2').value;
+  
+  state.act2.choices[1] = s1;
+  state.act2.choices[2] = s2;
+
+  const fb = document.getElementById('act2-feedback');
+  if (s1 === 'em' && s2 === 'mec') {
+    state.act2.completed = true;
+    fb.innerHTML = `<div class="feedback-box success">✅ <strong>¡Excelente clasificación!</strong> Las ondas de radio son electromagnéticas (cruzan el vacío) mientras que el sonido es mecánico (necesita las moléculas del aire).</div>`;
+    document.getElementById('btn-study2-next').classList.remove('btn-disabled');
+  } else if (s1 || s2) {
+    fb.innerHTML = `<div class="feedback-box error">❌ Revisa tu clasificación. Recuerda que el sonido no puede propagarse en el vacío.</div>`;
+  }
+}
+
+function renderStudy3(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 4: Microlectura 3</span>
+      <h2>Parámetros de la Onda Electromagnética</h2>
+
+      <p>
+        Toda onda electromagnética se caracteriza por tres magnitudes físicas interconectadas:
+      </p>
+
+      <ul style="margin-left: 20px; font-size: 0.9rem; color: #334155; line-height: 1.6; margin-bottom: 12px;">
+        <li><strong>Longitud de Onda (λ - Lambda):</strong> Distancia métrica entre dos crestas o valles consecutivos (medida en metros, nm, etc.).</li>
+        <li><strong>Frecuencia (f):</strong> Número de ciclos u oscilaciones por segundo (medida en Hertz: 1 Hz = 1/s).</li>
+        <li><strong>Velocidad de la Luz (c):</strong> Constante universal de propagación en el vacío ($c \approx 3 \times 10^8 \text{ m/s}$).</li>
+      </ul>
+
+      <div style="background:#e0f2fe; padding:12px; border-radius:8px; border:1px solid #7dd3fc; text-align:center; margin-bottom:14px;">
+        <span style="font-size:0.85rem; font-weight:bold; color:#0369a1;">ECUACIÓN FUNDAMENTAL DE LA ONDA:</span>
+        <div style="font-size:1.4rem; font-weight:800; color:#0c4a6e; margin:4px 0;">c = λ · f</div>
+        <p style="font-size:0.8rem; color:#0369a1; margin:0;">
+          Puesto que <strong>c</strong> es constante en el vacío, a <strong>mayor frecuencia (f)</strong> corresponde una <strong>menor longitud de onda (λ)</strong>.
+        </p>
+      </div>
+
+      <h3>Simulador Interactivo de Onda</h3>
+      <p style="font-size:0.85rem; color:var(--text-muted);">
+        Ajusta la frecuencia para observar visualmente cómo cambia la distancia entre crestas (longitud de onda λ):
+      </p>
+
+      <div style="background:#f1f5f9; padding:12px; border-radius:8px; margin-bottom:12px;">
+        <label style="font-weight:bold; font-size:0.82rem;">Ajustar Frecuencia (f): <span id="lbl-freq">${state.waveSim.freq}</span> Hz</label>
+        <input type="range" min="1" max="5" value="${state.waveSim.freq}" oninput="updateWaveSim(this.value)">
+      </div>
+
+      <div class="svg-container">
+        <svg id="wave-svg" width="100%" height="110" viewBox="0 0 320 110">
+          <!-- Dynamic SVG Wave path -->
+        </svg>
+      </div>
+
+      <button class="btn" onclick="nextPhase(5)">CONTINUAR AL MAPA CONCEPTUAL →</button>
+    </div>
+  `;
+
+  drawWaveSim();
+}
+
+function updateWaveSim(val) {
+  state.waveSim.freq = parseFloat(val);
+  document.getElementById('lbl-freq').textContent = val;
+  drawWaveSim();
+}
+
+function drawWaveSim() {
+  const svg = document.getElementById('wave-svg');
+  if (!svg) return;
+  const f = state.waveSim.freq;
+  
+  let pathD = "M 10 55";
+  for (let x = 10; x <= 310; x += 2) {
+    let y = 55 + Math.sin((x - 10) * 0.03 * f) * 35;
+    pathD += ` L ${x} ${Math.round(y)}`;
+  }
+
+  svg.innerHTML = `
+    <text x="10" y="18" fill="#94a3b8" font-size="10" font-weight="bold">DEMOSTRACIÓN: c = λ · f</text>
+    <line x1="10" y1="55" x2="310" y2="55" stroke="#475569" stroke-width="1" />
+    <path d="${pathD}" stroke="#38bdf8" stroke-width="3" fill="none" />
+    <text x="210" y="100" fill="#f59e0b" font-size="10" font-weight="bold">
+      ${f > 3 ? ' Alta Frecuencia → Menor λ' : ' Baja Frecuencia → Mayor λ'}
+    </text>
+  `;
+}
+
+const conceptWords = [
+  "campo eléctrico",
+  "campo magnético",
+  "vacío",
+  "velocidad de la luz",
+  "longitud de onda",
+  "frecuencia"
+];
+let selectedWord = null;
+
+function renderConceptMap(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 5: Organizador Conceptual</span>
+      <h2>Mapa Conceptual Interactivo</h2>
+      <p style="font-size:0.88rem; color:var(--text-muted);">
+        Toca una palabra del banco de respuestas y luego toca el espacio correspondiente para colocarla.
+      </p>
+
+      <div class="word-bank" id="word-bank">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div style="background:#ffffff; padding:14px; border:1px solid var(--border-color); border-radius:12px; line-height:2.2; font-size:0.92rem;">
+        "La radiación electromagnética está constituida por un 
+        <span class="fill-gap ${state.conceptMap.gaps[1]?'filled':''}" onclick="fillGap(1)" id="gap-1">${escapeHtml(state.conceptMap.gaps[1]) || '[1] _______'}</span> y un 
+        <span class="fill-gap ${state.conceptMap.gaps[2]?'filled':''}" onclick="fillGap(2)" id="gap-2">${escapeHtml(state.conceptMap.gaps[2]) || '[2] _______'}</span> oscilantes. 
+        Pueden propagarse incluso en el <span class="fill-gap ${state.conceptMap.gaps[3]?'filled':''}" onclick="fillGap(3)" id="gap-3">${escapeHtml(state.conceptMap.gaps[3]) || '[3] _______'}</span> a la 
+        <span class="fill-gap ${state.conceptMap.gaps[4]?'filled':''}" onclick="fillGap(4)" id="gap-4">${escapeHtml(state.conceptMap.gaps[4]) || '[4] _______'}</span>. 
+        La distancia entre crestas se denomina <span class="fill-gap ${state.conceptMap.gaps[5]?'filled':''}" onclick="fillGap(5)" id="gap-5">${escapeHtml(state.conceptMap.gaps[5]) || '[5] _______'}</span>, 
+        mientras que el número de ciclos por segundo es su <span class="fill-gap ${state.conceptMap.gaps[6]?'filled':''}" onclick="fillGap(6)" id="gap-6">${escapeHtml(state.conceptMap.gaps[6]) || '[6] _______'}</span>."
+      </div>
+
+      <div id="concept-feedback"></div>
+
+      <div style="display:flex; gap:8px; margin-top:14px;">
+        <button class="btn btn-secondary" onclick="checkConceptMap()">COMPROBAR MAPA</button>
+        <button class="btn btn-outline" onclick="resetConceptMap()">REINICIAR</button>
+      </div>
+
+      <button id="btn-concept-next" class="btn ${state.conceptMap.completed ? '' : 'btn-disabled'}" onclick="nextPhase(6)">
+        CONTINUAR A LA SECUENCIA LÓGICA →
+      </button>
+    </div>
+  `;
+
+  renderWordBank();
+}
+
+function renderWordBank() {
+  const bank = document.getElementById('word-bank');
+  if (!bank) return;
+  bank.innerHTML = '';
+
+  conceptWords.forEach((word) => {
+    const isUsed = Object.values(state.conceptMap.gaps).includes(word);
+    const chip = document.createElement('div');
+    chip.className = `word-chip ${isUsed ? 'used' : ''} ${selectedWord === word ? 'selected' : ''}`;
+    chip.textContent = word;
+    if (!isUsed) {
+      chip.onclick = () => {
+        selectedWord = word;
+        renderWordBank();
+      };
+    }
+    bank.appendChild(chip);
+  });
+}
+
+function fillGap(gapId) {
+  if (selectedWord) {
+    state.conceptMap.gaps[gapId] = selectedWord;
+    selectedWord = null;
+    renderConceptMap(document.getElementById('app-content'));
+  } else if (state.conceptMap.gaps[gapId]) {
+    state.conceptMap.gaps[gapId] = '';
+    renderConceptMap(document.getElementById('app-content'));
+  }
+}
+
+function checkConceptMap() {
+  const correct = {
+    1: "campo eléctrico",
+    2: "campo magnético",
+    3: "vacío",
+    4: "velocidad de la luz",
+    5: "longitud de onda",
+    6: "frecuencia"
+  };
+
+  let hits = 0;
+  let missing = 0;
+
+  for (let i = 1; i <= 6; i++) {
+    if (!state.conceptMap.gaps[i]) missing++;
+    else if (state.conceptMap.gaps[i] === correct[i]) hits++;
+  }
+
+  const fb = document.getElementById('concept-feedback');
+  if (missing > 0) {
+    fb.innerHTML = `<div class="feedback-box warning">⚠ Aún tienes ${missing} espacio(s) por responder. Toca una palabra y luego el espacio.</div>`;
+  } else if (hits === 6) {
+    state.conceptMap.completed = true;
+    fb.innerHTML = `<div class="feedback-box success">✅ <strong>¡Perfecto!</strong> Has estructurado correctamente el modelo ondulatorio de la REM.</div>`;
+    document.getElementById('btn-concept-next').classList.remove('btn-disabled');
+  } else {
+    fb.innerHTML = `<div class="feedback-box error">❌ Tienes ${hits} de 6 respuestas correctas. Toca un espacio para corregirlo.</div>`;
+  }
+}
+
+function resetConceptMap() {
+  state.conceptMap.gaps = { 1:'', 2:'', 3:'', 4:'', 5:'', 6:'' };
+  selectedWord = null;
+  state.conceptMap.completed = false;
+  renderConceptMap(document.getElementById('app-content'));
+}
+
+function renderOrdering(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 6: Secuencia del Proceso</span>
+      <h2>Ordena la Secuencia de Propagación</h2>
+      <p style="font-size:0.88rem; color:var(--text-muted);">
+        Usa las flechas (↑ y ↓) para ordenar los pasos lógicos desde el origen de la radiación hasta su recepción:
+      </p>
+
+      <ul class="order-list" id="order-list">
+        <!-- Dynamic steps -->
+      </ul>
+
+      <div id="ordering-feedback"></div>
+
+      <button class="btn btn-secondary" onclick="checkOrdering()">VERIFICAR ORDEN</button>
+      <button id="btn-ordering-next" class="btn ${state.ordering.completed ? '' : 'btn-disabled'}" onclick="nextPhase(7)">
+        CONTINUAR A LA REFLEXIÓN →
+      </button>
+    </div>
+  `;
+
+  renderOrderList();
+}
+
+function renderOrderList() {
+  const list = document.getElementById('order-list');
+  if (!list) return;
+  list.innerHTML = '';
+
+  state.ordering.items.forEach((item, idx) => {
+    const li = document.createElement('li');
+    li.className = 'order-item';
+    li.innerHTML = `
+      <span><strong>${idx + 1}.</strong> ${escapeHtml(item)}</span>
+      <div class="order-btns">
+        <button class="order-btn-mini" onclick="moveOrderItem(${idx}, -1)" ${idx===0?'disabled':''}>↑</button>
+        <button class="order-btn-mini" onclick="moveOrderItem(${idx}, 1)" ${idx===state.ordering.items.length-1?'disabled':''}>↓</button>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function moveOrderItem(idx, dir) {
+  const arr = state.ordering.items;
+  const temp = arr[idx];
+  arr[idx] = arr[idx + dir];
+  arr[idx + dir] = temp;
+  renderOrderList();
+}
+
+function checkOrdering() {
+  const expected = [
+    "Campos eléctricos y magnéticos oscilan perpendicularmente",
+    "La onda se propaga transportando energía electromagnética",
+    "Atraviesa el espacio o vacío a la velocidad c (300,000 km/s)",
+    "Interactúa con receptores transfiriendo dicha energía"
+  ];
+
+  let correct = true;
+  for (let i = 0; i < expected.length; i++) {
+    if (state.ordering.items[i] !== expected[i]) correct = false;
+  }
+
+  const fb = document.getElementById('ordering-feedback');
+  if (correct) {
+    state.ordering.completed = true;
+    fb.innerHTML = `<div class="feedback-box success">✅ <strong>¡Secuencia Correcta!</strong> Comprendes la lógica secuencial de propagación electromagnética.</div>`;
+    document.getElementById('btn-ordering-next').classList.remove('btn-disabled');
+  } else {
+    fb.innerHTML = `<div class="feedback-box error">❌ El orden aún no es totalmente correcto. Ajusta la posición de las oraciones e intenta nuevamente.</div>`;
+  }
+}
+
+function renderWrittenReflect(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 7: Explicación Escrita</span>
+      <h2>Aplica lo Aprendido</h2>
+      
+      <p style="font-weight:600; color:var(--text-dark);">
+        Explica con tus propias palabras: ¿Por qué la radiación electromagnética puede viajar desde las estrellas a través del espacio exterior, mientras que el sonido de una explosión espacial no podría escucharse?
+      </p>
+
+      <textarea id="written-text" rows="4" placeholder="Escribe tu explicación aquí (mínimo 30 caracteres)...">${escapeHtml(state.writtenAnswer.text)}</textarea>
+
+      <button class="btn btn-secondary" onclick="submitWrittenAnswer()">COMPARAR MI RESPUESTA CON LA IDEA CLAVE</button>
+
+      <div id="written-feedback" style="margin-top:12px;"></div>
+
+      <button id="btn-written-next" class="btn ${state.writtenAnswer.reviewed ? '' : 'btn-disabled'}" onclick="nextPhase(8)">
+        IR A LA EVALUACIÓN FORMATIVA (QUIZ 10/10) →
+      </button>
+    </div>
+  `;
+
+  if (state.writtenAnswer.reviewed) showWrittenKeyIdea();
+}
+
+function submitWrittenAnswer() {
+  const text = document.getElementById('written-text').value.trim();
+  const fb = document.getElementById('written-feedback');
+
+  if (text.length < 30) {
+    fb.innerHTML = `<div class="feedback-box warning">⚠ Por favor, redacta una respuesta un poco más completa (mínimo 30 caracteres) antes de continuar.</div>`;
+    return;
+  }
+
+  state.writtenAnswer.text = text;
+  state.writtenAnswer.reviewed = true;
+  showWrittenKeyIdea();
+  document.getElementById('btn-written-next').classList.remove('btn-disabled');
+}
+
+function showWrittenKeyIdea() {
+  const fb = document.getElementById('written-feedback');
+  if (!fb) return;
+  fb.innerHTML = `
+    <div class="feedback-box info">
+      <strong>🧠 Compara con la Idea Clave de la Progresión 6:</strong><br>
+      "La radiación electromagnética (como la luz de las estrellas) es una onda transversal formada por campos eléctricos y magnéticos oscilantes que no requiere ningún medio material y se autopropaga en el vacío a $c \approx 3 \times 10^8 \text{ m/s}$. En cambio, el sonido es una onda mecánica que necesita indispensablemente vibraciones de partículas materiales (aire o gas) para viajar, las cuales no existen en el espacio exterior."
+    </div>
+  `;
+}
+
+function renderQuiz(container) {
+  const qIdx = state.quiz.currentQuestion;
+  const qData = quizQuestions[qIdx];
+  const selectedAns = state.quiz.answers[qIdx];
+
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 8: Comprobación de Aprendizajes</span>
+      <h2>Evaluación Formativa (Parte 1 de 3)</h2>
+
+      <!-- Navigation Grid -->
+      <div class="quiz-nav-grid">
+        ${quizQuestions.map((_, idx) => `
+          <button class="quiz-nav-btn ${idx === qIdx ? 'active' : ''} ${state.quiz.answers[idx] !== null ? 'answered' : ''}" onclick="goToQuestion(${idx})">
+            ${idx + 1}
+          </button>
+        `).join('')}
+      </div>
+
+      <div class="card" style="background:#ffffff; border:1px solid var(--border-color); margin-bottom:14px;">
+        <p style="font-weight:700; font-size:0.95rem; color:var(--text-dark);">${qData.q}</p>
+        
+        <div style="margin-top:10px;">
+          ${qData.options.map((opt, oIdx) => `
+            <button class="option-btn ${selectedAns === oIdx ? 'selected' : ''}" onclick="selectQuizAnswer(${oIdx})">
+              ${escapeHtml(opt)}
+            </button>
+          `).join('')}
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; gap:8px;">
+        <button class="btn btn-outline" style="width:48%;" onclick="prevQuestion()" ${qIdx === 0 ? 'disabled' : ''}>← ANTERIOR</button>
+        <button class="btn btn-outline" style="width:48%;" onclick="nextQuestion()" ${qIdx === 9 ? 'disabled' : ''}>SIGUIENTE →</button>
+      </div>
+
+      <div style="margin-top:16px;">
+        <button class="btn btn-secondary" onclick="submitQuiz()">ENTREGAR EVALUACIÓN Y CONTINUAR</button>
+      </div>
+      
+      <div id="quiz-error"></div>
+    </div>
+  `;
+}
+
+function goToQuestion(idx) {
+  state.quiz.currentQuestion = idx;
+  renderQuiz(document.getElementById('app-content'));
+}
+
+function selectQuizAnswer(ansIdx) {
+  state.quiz.answers[state.quiz.currentQuestion] = ansIdx;
+  renderQuiz(document.getElementById('app-content'));
+}
+
+function prevQuestion() {
+  if (state.quiz.currentQuestion > 0) {
+    state.quiz.currentQuestion--;
+    renderQuiz(document.getElementById('app-content'));
+  }
+}
+
+function nextQuestion() {
+  if (state.quiz.currentQuestion < 9) {
+    state.quiz.currentQuestion++;
+    renderQuiz(document.getElementById('app-content'));
+  }
+}
+
+function submitQuiz() {
+  const unanswered = [];
+  state.quiz.answers.forEach((ans, idx) => {
+    if (ans === null) unanswered.push(idx + 1);
+  });
+
+  const errBox = document.getElementById('quiz-error');
+  if (unanswered.length > 0) {
+    errBox.innerHTML = `
+      <div class="feedback-box error" style="margin-top:12px;">
+        ⚠ Aún te faltan ${unanswered.length} pregunta(s) por responder: <strong>${unanswered.join(', ')}</strong>.
+      </div>
+    `;
+    return;
+  }
+
+  let score = 0;
+  state.quiz.answers.forEach((ans, idx) => {
+    if (ans === quizQuestions[idx].correct) score++;
+  });
+
+  state.quiz.score = score;
+  state.quiz.submitted = true;
+  state.timestamp = new Date().toLocaleString('es-MX');
+
+  state.currentPhase = 9;
+  render();
+}
+
+function renderMetaReflection(container) {
+  container.innerHTML = `
+    <div class="card">
+      <span class="badge-tag badge-rem">Etapa 9: Cierre Metacognitivo</span>
+      <h2>Reflexión Final del Estudiante</h2>
+
+      <p style="font-size:0.9rem;">
+        Para concluir tu primera parte de la Progresión 6, reflexiona brevemente sobre lo aprendido hoy en casa:
+      </p>
+
+      <label style="font-weight:bold; font-size:0.85rem;">¿Qué fue lo más importante que aprendiste sobre la radiación electromagnética?</label>
+      <textarea id="meta-text" rows="3" placeholder="Escribe tu reflexión final aquí...">${escapeHtml(state.metaReflection.text)}</textarea>
+
+      <label style="font-weight:bold; font-size:0.85rem;">¿Qué nivel de dificultad percibiste durante esta sesión autónoma?</label>
+      <select id="meta-diff">
+        <option value="fácil" ${state.metaReflection.difficulty==='fácil'?'selected':''}>Muy Claro / Fácil de comprender</option>
+        <option value="normal" ${state.metaReflection.difficulty==='normal'?'selected':''}>Adecuado / Nivel de bachillerato normal</option>
+        <option value="difícil" ${state.metaReflection.difficulty==='difícil'?'selected':''}>Desafiante / Requerí repasar varias veces</option>
+      </select>
+
+      <button class="btn" onclick="saveMetaAndShowEvidence()">GENERAR MI TARJETA DE EVIDENCIA FINAL →</button>
+    </div>
+  `;
+}
+
+function saveMetaAndShowEvidence() {
+  const text = document.getElementById('meta-text').value.trim();
+  if (text.length < 15) {
+    alert("Por favor escribe una breve reflexión (mínimo 15 caracteres) para guardar tu evidencia.");
+    return;
+  }
+
+  state.metaReflection.text = text;
+  state.metaReflection.difficulty = document.getElementById('meta-diff').value;
+  state.currentPhase = 10;
+  render();
+}
+
+function renderEvidenceCard(container) {
+  const score = state.quiz.score;
+  const pct = Math.round((score / 10) * 100);
+
+  container.innerHTML = `
+    <div class="evidence-card">
+      <div class="evidence-header">
+        ✅ EVIDENCIA DE APRENDIZAJE AUTÓNOMO
+      </div>
+
+      <div style="font-size:0.82rem; line-height:1.5; color:var(--text-dark); margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
+        <p><strong>ASIGNATURA:</strong> La Energía en los Procesos de la Vida Diaria</p>
+        <p><strong>PROGRESIÓN:</strong> 6 — Parte 1 de 3 (Modelo Ondulatorio de la REM)</p>
+        <p><strong>ALUMNO(A):</strong> ${escapeHtml(state.studentName)}</p>
+        <p><strong>GRUPO:</strong> ${escapeHtml(state.studentGroup)}</p>
+        <p><strong>FECHA Y HORA LOCAL:</strong> ${state.timestamp}</p>
+      </div>
+
+      <div style="background:#f0f9ff; border:1px stroke #bae6fd; border-radius:8px; padding:8px; text-align:center;">
+        <span style="font-size:0.8rem; font-weight:bold; color:var(--text-muted);">RESULTADO EVALUACIÓN FORMATIVA:</span>
+        <div class="evidence-score">${score} / 10</div>
+        <div style="font-size:1.05rem; font-weight:bold; color:var(--primary-dark);">${pct}% DE ACIERTOS</div>
+      </div>
+
+      <div style="margin-top:10px; font-size:0.8rem; background:#f8fafc; padding:8px; border-radius:8px; border:1px solid #e2e8f0;">
+        <p style="font-weight:bold; color:var(--primary-dark);">🧠 REFLEXIÓN DEL ALUMNO:</p>
+        <p style="font-style:italic; color:#334155; margin:0;">
+          "${escapeHtml(state.metaReflection.text)}"
+        </p>
+      </div>
+
+      <div style="background:#fef3c7; border:1px dashed #f59e0b; padding:10px; border-radius:8px; font-size:0.82rem; text-align:center; font-weight:bold; color:#92400e; margin-top:12px;">
+        📸 TOMA UNA CAPTURA DE ESTA PANTALLA Y ENVÍALA A TU PROFESOR POR WHATSAPP.
+      </div>
+
+      <button class="btn btn-outline" style="margin-top:12px;" onclick="toggleReviewSection()">
+        REVISAR RESPUESTAS DETALLADAS DEL QUIZ
+      </button>
+    </div>
+
+    <div id="review-section" style="display:none; margin-top:16px;">
+      <div class="card">
+        <h3>Desglose de la Evaluación Formativa</h3>
+        ${quizQuestions.map((q, idx) => {
+          const userAns = state.quiz.answers[idx];
+          const isCorrect = userAns === q.correct;
+          return `
+            <div style="margin-bottom:12px; padding:10px; border-left:4px solid ${isCorrect ? 'var(--success)' : 'var(--error)'}; background:#f8fafc; font-size:0.85rem;">
+              <p style="font-weight:bold;">${q.q}</p>
+              <p style="color:${isCorrect ? 'var(--success)' : 'var(--error)'};">
+                Tu respuesta: ${escapeHtml(q.options[userAns])} ${isCorrect ? '✅' : '❌'}
+              </p>
+              ${!isCorrect ? `<p style="color:var(--success);">Respuesta correcta: ${escapeHtml(q.options[q.correct])}</p>` : ''}
+              <p style="color:var(--text-muted); margin-top:4px;"><em>Fundamento: ${q.explain}</em></p>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function toggleReviewSection() {
+  const sec = document.getElementById('review-section');
+  if (sec) {
+    sec.style.display = sec.style.display === 'none' ? 'block' : 'none';
+  }
+}
+
+function nextPhase(target) {
+  state.currentPhase = target;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.onload = function() {
+  render();
+};
+</script>
+</body>
+</html>
